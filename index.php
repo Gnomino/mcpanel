@@ -71,7 +71,6 @@ $app->get('/', function() use($app) {
 	catch(MinecraftQueryException $e) {
 		$offline = true;
 	}
-	echo json_encode($q->getInfo(), JSON_PRETTY_PRINT);
 	$booting = file_exists('.booting');
 	if (!$offline && $booting) {
 		unlink('.booting');
