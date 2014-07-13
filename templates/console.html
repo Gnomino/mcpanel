@@ -1,0 +1,44 @@
+{% set page="console" %}
+{% extends "layout.html" %}
+{% block title %}Console{% endblock %}
+{% block body %}
+<h1 class="ui center aligned icon header">
+        <i class="circular emphasized icon terminal"></i>
+        <div class="content">Console</div>
+        <div class="sub header">La console de votre serveur en direct</div>
+</h1>
+<div class="ui divider horizontal"><i class="circular terminal icon"></i></div>
+
+<form class="ui form segment" action="{{ urlFor('run-cmd') }}" method="post">
+<div class="field">
+<label for="cmd">
+	Éxécuter une commande
+</label>
+<div class="input">
+<input type="text" name="cmd" id="cmd" placeholder="Éxécuter une commande" />
+</div>
+</div>
+</form>
+
+
+<div class="segment list ui divided" style="height:350px; overflow: auto;" id="log">
+{% for l in log %}
+<div class="item">
+{{ l }}
+</div>
+{% endfor %}
+</div>
+<script>
+function refresh() {
+	$.get('{{ urlFor('ajax-log') }}', {}, function(r) {
+		r = eval(r)
+		$('#log').html('');
+		for (var i = 0; i < r.length; i++) {
+			$('#log').append($('<div></div>', {class: "item"}).text(r[i]));
+		};
+	});
+	setTimeout(refresh, 10000);
+}
+refresh();
+</script>
+{% endblock %}

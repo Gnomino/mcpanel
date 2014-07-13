@@ -1,0 +1,35 @@
+{% set page="dashboard" %}
+{% extends "layout.html" %}
+{% block title %}Tableau de bord{% endblock %}
+{% block body %}
+<h1 class="ui center aligned icon header">
+        <i class="circular emphasized icon dashboard"></i>
+        <div class="content">Tableau de bord</div>
+        <div class="sub header">Toutes les informations relatives &agrave; votre serveur</div>
+</h1>
+<div class="ui horizontal divider">
+	<i class="icon circular dashboard"></i>
+</div>
+{% if not offline %}
+<div class="ui divided list">
+<div class="item">
+<b>Version du serveur : </b> {{ q.getInfo().Version }} ( {{ q.getInfo().Software }})
+</div>
+<div class="item">
+<b>Adresse du serveur : </b> {{ q.getInfo().HostIp }}:{{ q.getInfo().HostPort }}
+</div>
+<div class="item">
+<b>Joueurs : </b> {{ q.getInfo().Players }}/{{ q.getInfo().MaxPlayers }}
+</div>
+
+</div>
+{% else %}
+{% if not booting %}
+<div class="warning ui message">Le serveur est actuellement hors ligne</div> <br />
+{% else %}
+<div class="ui blue message">Le serveur est en train de démarrer ...</div>
+{% endif %}
+<a {% if not booting %}href="{{ urlFor('power-on') }}" {% endif %}class="ui button green{% if booting %}disabled{% endif %}">Démarrer le serveur</a>
+{% endif %}
+
+{% endblock %}

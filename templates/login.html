@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block title %}Identification{% endblock %}
+{% block body %}
+<h1 class="ui center aligned icon header">
+        <i class="circular emphasized user icon"></i>
+        <div class="content">Identification</div>
+        <div class="sub header">Authentifiez-vous pour accéder au panel du serveur {{ name }}</div>
+</h1>
+<form class="ui form segment" method="post" action="{{ urlFor('login') }}">
+<div class="field">
+<label for="uname">
+Nom d'utilisateur
+</label>
+<div class="ui left labeled icon input">
+<input type="text" placeholder="Nom d'utilisateur" name="username" id="uname" />
+<i class="user icon"></i>
+<div class="ui corner label">
+<i class="asterisk icon"></i>
+</div>
+</div>
+</div>
+<div class="field">
+<label for="pwd">
+Mot de passe
+</label>
+<div class="ui left labeled icon input">
+<input type="password" id="pwd" name="password" />
+<i class="lock icon"></i>
+<div class="ui corner label">
+<i class="asterisk icon"></i>
+</div>
+</div>
+</div>
+<button type="submit" class="ui blue button">S'identifier</button>
+</form>
+{% endblock %}

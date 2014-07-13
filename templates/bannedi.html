@@ -1,0 +1,41 @@
+{% set page="players" %}
+{% extends "layout.html" %}
+{% block title %}Joueurs bannis par IP{% endblock %}
+{% block body %}
+<h1 class="ui center aligned icon header">
+        <i class="circular emphasized icon users"></i>
+        <div class="content">Joueurs</div>
+        <div class="sub header">Gérez vos joueurs en un clic !</div>
+</h1>
+<div class="ui divider horizontal"><i class="circular users icon"></i></div>
+<div class="ui menu tabular">
+	<a class="item" href="{{ urlFor('players') }}">Joueurs en ligne</a>
+	<a class="item" href="{{ urlFor('players-ops') }}">Opérateurs</a>
+	<a class="item" href="{{ urlFor('players-banned') }}">Joueurs bannis</a>
+	<a class="active item" href="{{ urlFor('players-banned-ip') }}">Adresse IPs bannies</a>
+	<a class="item" href="{{ urlFor('players-whitelist') }}">Whitelist</a>
+</div>
+{% if banned is empty %}
+	Aucun joueur n'est banni par IP actuellement.
+{% else %}
+	<div class="ui divided list">
+	{% for p in banned %}
+		<div class="item">
+			<div class="right floated tiny green ui button" onclick="cmd('pardon-ip {{ p.ip }}');"><i class="legal icon"></i> Débannir</div>
+			
+			<div class="content">
+			<div class="header">{{ p.ip }}</div>
+			{{ p.reason }}
+			</div>
+		</div>
+	{% endfor %}
+	</div>
+	<script>
+		function cmd(c) {
+			$.post('{{ urlFor('run-cmd') }}', {cmd: c}, function(c) {
+				document.location.href = '';
+			});
+		}
+	</script>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>{{ name }} :: {% block title %}{% endblock %}</title>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans Pro:200italic,200,300italic,300,400italic,400,600italic,600,700italic,700,900italic,900" />
+		<style type="text/css">
+		body {
+			font-family: "Source Sans Pro";
+		}
+		</style>
+		<link rel="stylesheet" href="{{ baseUrl() }}/assets/css/semantic.min.css" />
+		<script src="{{ baseUrl() }}/assets/javascript/jquery.min.js"></script>
+		<script src="{{ baseUrl() }}/assets/javascript/semantic.min.js"></script>
+
+	</head>
+	<body>
+		<div class="ui blue inverted menu">
+			<a class="item{% if page == 'dashboard' %} active{% endif %}" href="{{ urlFor('index') }}"><i class="dashboard icon"></i> Tableau de bord</a>
+			<a class="item{% if page =='console' %} active{% endif %}" href="{{ urlFor('console') }}"><i class="terminal icon"></i> Console</a>
+			<a class="item{% if page=='players' %} active{% endif %}" href="{{ urlFor('players') }}"><i class="users icon"></i> Joueurs</a>
+		</div>
+		{% block body %}{% endblock %}
+	</body>
+</html>
