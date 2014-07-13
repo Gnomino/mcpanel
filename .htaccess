@@ -1,5 +1,4 @@
 RewriteEngine On
-RewriteBase /~gnomino/mcpanel
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^ index.php [QSA,L]
 <Files users.json>
